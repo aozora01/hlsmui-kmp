@@ -22,10 +22,17 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
+            val koin = "4.0.0"
             dependencies {
+//                implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
+//                implementation("io.insert-koin:koin-core:$koin")
+//                implementation("io.insert-koin:koin-compose:$koin")
+//                implementation("io.insert-koin:koin-compose-viewmodel:$koin")
+
+
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.material)
+                implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 api(project(":lib"))

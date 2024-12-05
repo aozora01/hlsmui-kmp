@@ -1,41 +1,33 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import io.github.aozora01.hlsmui.component.container.HAppTheme
+import io.github.aozora01.hlsmui.component.dump.HTextFieldDump
+import io.github.aozora01.hlsmui.component.input.textfield.HTextField
+import io.github.aozora01.hlsmui.component.text.HLabel
+import io.github.aozora01.hlsmui.mode.SchemeMode
+import io.github.aozora01.hlsmui.scheme.HColorScheme
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
-    MaterialTheme {
-        var greetingText by remember { mutableStateOf("Hello, World!") }
-        var showImage by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = {
-                greetingText = "Hello, ${getPlatformName()}"
-                showImage = !showImage
-            }) {
-                Text(greetingText)
-            }
-            AnimatedVisibility(showImage) {
-                Image(
-                    painterResource("compose-multiplatform.xml"),
-                    contentDescription = "Compose Multiplatform icon",
-                )
+
+    HAppTheme(colorScheme = HColorScheme.JakartaBus, mode = SchemeMode.Dark){
+        LazyColumn(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)){
+            item {
+                HTextFieldDump()
             }
         }
+
+
     }
 }
+
+
 
 expect fun getPlatformName(): String

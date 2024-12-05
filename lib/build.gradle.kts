@@ -32,6 +32,9 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+                implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
+
+
             }
         }
         val androidMain by getting {

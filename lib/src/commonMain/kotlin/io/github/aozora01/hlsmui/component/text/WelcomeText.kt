@@ -1,4 +1,4 @@
-package io.github.aozora01.hlsmui.component.Text
+package io.github.aozora01.hlsmui.component.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package io.github.aozora01.hlsmui.scheme.schemes
+package io.github.aozora01.hlsmui.scheme
 
 enum class HColorSchemeCategory {
     Brand,
@@ -6,5 +6,7 @@ enum class HColorSchemeCategory {
     Nature,
     Astronomy,
     Neutral,
-    Standard
+    Standard,
+    Colorful,
+    Default
 }
