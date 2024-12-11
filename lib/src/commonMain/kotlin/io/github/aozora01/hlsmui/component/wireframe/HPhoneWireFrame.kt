@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -29,7 +30,7 @@ fun HPhoneWireFrame(){
     Box (
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(0.5f)
+            .aspectRatio(9/16f)
             .clip(RoundedCornerShape(16.dp))
 
 
@@ -57,13 +58,13 @@ private fun Content(){
             .fillMaxWidth()
             .padding(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "hlsmUI",
                 color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.titleLarge,
             )
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             Text(
                 text = "Hello, John",
                 style = MaterialTheme.typography.titleMedium,

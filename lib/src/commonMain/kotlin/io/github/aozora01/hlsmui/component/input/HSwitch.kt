@@ -19,7 +19,7 @@ fun HSwitch(
     switchOnLabel: @Composable () -> Unit = {  },
     switchOffLabel: @Composable () -> Unit = {  },
     modifier: Modifier = Modifier,
-    toggleModifier: Modifier = Modifier
+//    toggleModifier: Modifier = Modifier
 ) {
     // Remember the switch state
 
@@ -28,13 +28,13 @@ fun HSwitch(
     Row(
 
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+//        modifier = modifier
 
     ) {
         if(isChecked) switchOnLabel() else switchOffLabel()
         Spacer(modifier = Modifier.width(4.dp))
         Switch(
-            modifier = toggleModifier,
+            modifier = modifier,
             checked = isChecked,
             onCheckedChange = { onCheckedChange(it)},
 

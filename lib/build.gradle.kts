@@ -1,16 +1,30 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
     kotlin("multiplatform")
+//    id("org.jetbrains.kotlin.multiplatform").version("2.0.21")
+
+
     id("com.android.library")
-    id("org.jetbrains.compose")
+//    id("org.jetbrains.compose")
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish")
+
+    id("org.jetbrains.compose").version("1.7.0")
+    id("org.jetbrains.kotlin.plugin.compose").version("2.0.21")
+
 }
+
 
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
+    }
+
+    js {
+        browser()
+        binaries.executable()
     }
 
     jvm("desktop")
@@ -27,12 +41,16 @@ kotlin {
     }
 
     sourceSets {
+        @OptIn(ExperimentalComposeLibrary::class)
         val commonMain by getting {
             dependencies {
+//                implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
+                implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
-                implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
+                implementation(compose.components.resources)
+
 
 
             }
@@ -41,6 +59,11 @@ kotlin {
             dependencies {
             }
         }
+
+        val jsMain by getting {
+            dependencies
+        }
+
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -83,7 +106,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.aozora01",
         artifactId = "hlsmui",
-        version = "1.0.57"
+        version = "1.0.58"
     )
 
     // Configure POM metadata for the published artifact

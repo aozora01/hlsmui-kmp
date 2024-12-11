@@ -20,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -43,7 +44,7 @@ fun HOutlinedTextField(
     inputType: InputType = InputType.Text,
     label: @Composable () -> Unit = {HLabel("Input")},
     placeholder : @Composable () -> Unit = {HLabel("")},
-    colors : TextFieldColors = TextFieldDefaults.colors()
+    colors : TextFieldColors = OutlinedTextFieldDefaults.colors()
 ) {
     var showPassword by remember { mutableStateOf(false) }
     var number by remember { mutableStateOf(value.toIntOrNull() ?: 0) }
