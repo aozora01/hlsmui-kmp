@@ -16,7 +16,11 @@ fun <T> HRadio(
     options: List<T>,
     onOptionSelected: (T) -> Unit,
     optionLabel: @Composable (T) -> Unit ,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    colors: RadioButtonColors = RadioButtonDefaults.colors(
+        selectedColor = MaterialTheme.colorScheme.primary,
+        unselectedColor = MaterialTheme.colorScheme.onBackground
+    )
 ) {
     Column(modifier = modifier) {
         options.forEach { option ->
@@ -32,10 +36,7 @@ fun <T> HRadio(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = MaterialTheme.colorScheme.primary,
-                        unselectedColor = MaterialTheme.colorScheme.onBackground
-                    ),
+                    colors = colors,
                     selected = (option == selectedOption),
                     onClick = null // null recommended for accessibility with screenreaders
                 )

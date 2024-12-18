@@ -16,8 +16,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+data class SelectColors(
+    val backgroundColor: Color,
+    val dropdownBackgroundColor: Color,
+    val borderColor: Color,
+
+)
+
+object SelectDefaults {
+
+    @Composable
+    fun colors(
+        backgroundColor: Color = MaterialTheme.colorScheme.background,
+        dropdownBackgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+        borderColor: Color = MaterialTheme.colorScheme.onBackground
+    ): SelectColors {
+        return SelectColors(
+            backgroundColor = backgroundColor,
+            borderColor = borderColor,
+            dropdownBackgroundColor = dropdownBackgroundColor
+
+        )
+    }
+
+}
 
 @Composable
 fun <T> HSelect(
@@ -26,16 +51,15 @@ fun <T> HSelect(
     onOptionSelected: (T) -> Unit,
     modifier: Modifier = Modifier,
     selectedOptionLabel: @Composable (T) -> Unit,
-    optionLabel: @Composable (T) -> Unit
+    optionLabel: @Composable (T) -> Unit,
+    colors: SelectColors = SelectDefaults.colors()
 ){
     var expanded by remember { mutableStateOf(false) } // Mengontrol apakah menu terbuka atau tidak
     Box(modifier = modifier.fillMaxWidth(1f)) {
         OutlinedButton(
             onClick = { expanded = true },
-            modifier = Modifier.fillMaxWidth(),
-
-
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground) // Ubah warna border
+            modifier = Modifier.fillMaxWidth().background(colors.backgroundColor),
+            border = BorderStroke(1.dp, colors.borderColor) // Ubah warna border
         ) {
             selectedOptionLabel(selectedOption)
         }
@@ -46,7 +70,7 @@ fun <T> HSelect(
 //                .fillMaxWidth()
                 .heightIn(max = 400.dp) // Batasi tinggi maksimum
                 .wrapContentHeight()
-                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .background(colors.dropdownBackgroundColor)
         ) {
             options.forEach { option ->
                 DropdownMenuItem(

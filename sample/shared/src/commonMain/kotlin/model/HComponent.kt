@@ -1,7 +1,10 @@
 package model
 
 enum class HComponentName {
-    GetStarted, Theme, Input, Text, Button, Card, Divider, Icon,Switch, Select, Radio, TextField
+    GetStarted, Theme,
+    Input, Button, Card, Divider, Icon,Switch, Select, Radio, TextField,OutlinedTextField,
+    Text, Label, Body, Title, Headline,
+    Color
 }
 
 class HComponent (

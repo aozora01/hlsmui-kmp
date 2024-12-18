@@ -6,6 +6,5 @@ enum class HFont {
     SansSerif,
     Cursive,
     Monospace,
-
     Quicksand
 }

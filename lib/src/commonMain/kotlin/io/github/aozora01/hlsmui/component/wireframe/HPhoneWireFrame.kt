@@ -66,7 +66,7 @@ private fun Content(){
             )
             Spacer(modifier = Modifier.height(48.dp))
             Text(
-                text = "Hello, John",
+                text = "hello world!",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimary
             )

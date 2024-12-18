@@ -11,13 +11,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 data class AppUiState(
-    val navbarMenu:NavbarMenu = NavbarMenu(),
+
     val name:String = "app",
     val colorSchemeCategory: HColorSchemeCategory = HColorSchemeCategory.All,
     val colorScheme: HColorScheme = HColorScheme.Watermelon,
     val font: HFont = HFont.Quicksand,
     val shapes: HShapes = HShapes.Rounded,
-    val mode:HMode = HMode.Light
+    val mode:HMode = HMode.Light,
+    val navBarMenu: NavbarMenu = NavbarMenu.Home
 )
 
 class AppViewModel : ViewModel() {
@@ -25,7 +26,9 @@ class AppViewModel : ViewModel() {
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
     fun updateNavbarMenu(navbarMenu: NavbarMenu){
-        _uiState.value = _uiState.value.copy(navbarMenu = navbarMenu)
+        _uiState.value = _uiState.value.copy(
+            navBarMenu = navbarMenu
+        )
     }
 
     fun updateColorSchemeCategory(colorSchemeCategory: HColorSchemeCategory){
@@ -57,7 +60,6 @@ class AppViewModel : ViewModel() {
         shapes = HShapes.${uiState.value.shapes.name}
     )
 
-
     HAppTheme(
         theme = theme, 
         mode = HMode.${uiState.value.mode.name}
@@ -65,12 +67,10 @@ class AppViewModel : ViewModel() {
         Column() {
             HPhoneWireframe()
         }
-
     }
            """.trimIndent()
        } else {
           return """
- 
     HAppTheme(
         colorScheme = HColorScheme.${uiState.value.colorScheme.name}, 
         mode = HMode.${uiState.value.mode.name}
@@ -78,7 +78,6 @@ class AppViewModel : ViewModel() {
         Column() {
             HPhoneWireframe()
         }
-
     }
           """.trimIndent()
        }

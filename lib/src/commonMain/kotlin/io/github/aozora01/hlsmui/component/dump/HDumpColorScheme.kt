@@ -1,6 +1,7 @@
 package io.github.aozora01.hlsmui.component.dump
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.aozora01.hlsmui.component.text.HLabel
 
 
 private class BoxProperty(
@@ -28,7 +30,6 @@ private class BoxProperty(
 @Composable
 fun HDumpColorScheme(){
 
-    var isShow by remember { mutableStateOf(true) }
     val boxProperties = listOf(
         BoxProperty(
             boxColor = MaterialTheme.colorScheme.primary,
@@ -119,31 +120,31 @@ fun HDumpColorScheme(){
             textColor = MaterialTheme.colorScheme.onBackground,
             text = "surface tint"
         ),
-//        BoxProperty(
-//            boxColor = MaterialTheme.colorScheme.surfaceBright,
-//            textColor = MaterialTheme.colorScheme.onSurface,
-//            text = "surface bright"
-//        ),
-//        BoxProperty(
-//            boxColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-//            textColor = MaterialTheme.colorScheme.onSurface,
-//            text = "surface container lowest"
-//        ),
-//        BoxProperty(
-//            boxColor = MaterialTheme.colorScheme.surfaceContainerLow,
-//            textColor = MaterialTheme.colorScheme.onSurface,
-//            text = "surface container low"
-//        ),
-//        BoxProperty(
-//            boxColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-//            textColor = MaterialTheme.colorScheme.onSurface,
-//            text = "surface container high"
-//        ),
-//        BoxProperty(
-//            boxColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-//            textColor = MaterialTheme.colorScheme.onSurface,
-//            text = "surface container highest"
-//        ),
+        BoxProperty(
+            boxColor = MaterialTheme.colorScheme.surfaceBright,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            text = "surface bright"
+        ),
+        BoxProperty(
+            boxColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            text = "surface container lowest"
+        ),
+        BoxProperty(
+            boxColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            text = "surface container low"
+        ),
+        BoxProperty(
+            boxColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            text = "surface container high"
+        ),
+        BoxProperty(
+            boxColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            text = "surface container highest"
+        ),
 
 
 
@@ -186,12 +187,17 @@ private fun BoxTest(boxProperty: BoxProperty){
             .background(boxProperty.boxColor),
         contentAlignment = Alignment.Center
     ){
-        Text(
-            text = boxProperty.text,
-            color = boxProperty.textColor,
-            fontSize = MaterialTheme.typography.labelLarge.fontSize,
-            fontWeight = FontWeight.ExtraLight
-//            fontStyle = FontStyle.Italic
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            HLabel(boxProperty.text, color = boxProperty.textColor)
+            HLabel(
+                "MaterialTheme.colorScheme.${formatString(boxProperty.text)}",
+                color = boxProperty.textColor)
+        }
+
     }
+}
+
+private fun formatString(input: String): String {
+    val noSpaces = input.replace(" ", "")
+    return noSpaces.replaceFirstChar { it.lowercase() }
 }

@@ -15,7 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,17 +36,13 @@ enum class NavbarColor{
     Transparent
 }
 
-enum class NavbarMenuName{
+enum class NavbarMenu{
     Home,
     Documentation,
-    Github,
-    Support
+    About,
 }
 
-data class NavbarMenu(
-    val name:NavbarMenuName = NavbarMenuName.Documentation,
-    val url:String = "x"
-)
+
 
 @Composable
 fun Navbar(viewModel: AppViewModel = koinViewModel(), color: NavbarColor = NavbarColor.Transparent){
@@ -61,8 +61,8 @@ fun Navbar(viewModel: AppViewModel = koinViewModel(), color: NavbarColor = Navba
         modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor)
-            .padding(16.dp)
-            .padding(horizontal = 32.dp),
+            .padding(vertical = 16.dp),
+//
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(modifier = Modifier.weight(1f)) { Logo(textColor)}
@@ -72,7 +72,7 @@ fun Navbar(viewModel: AppViewModel = koinViewModel(), color: NavbarColor = Navba
             horizontalArrangement = Arrangement.End
         ) {
 
-            NavbarMenu(textColor)
+            NavbarMenus(textColor)
 
         }
 
@@ -80,37 +80,51 @@ fun Navbar(viewModel: AppViewModel = koinViewModel(), color: NavbarColor = Navba
 }
 
 @Composable
-fun NavbarMenu(textColor :Color, viewModel: AppViewModel = koinViewModel()){
+fun NavbarMenus(textColor :Color, viewModel: AppViewModel = koinViewModel()){
     val uiState = viewModel.uiState.collectAsState()
 
     val menus = listOf(
-        NavbarMenu(NavbarMenuName.Home, ""),
-        NavbarMenu(NavbarMenuName.Documentation, ""),
-        NavbarMenu(NavbarMenuName.Github, ""),
-        NavbarMenu(NavbarMenuName.Support, "")
+        NavbarMenu.Home,
+       NavbarMenu.Documentation,
+        NavbarMenu.About
     )
-    menus.forEach {
-        TextButton(
-            onClick = {viewModel.updateNavbarMenu(it)},
-            colors = ButtonDefaults.textButtonColors(
-                containerColor = if(uiState.value.navbarMenu.name == it.name) MaterialTheme.colorScheme.primaryContainer else Color.Transparent
-            )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        menus.forEach {
+            TextButton(
+                onClick = {viewModel.updateNavbarMenu(it)},
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = if(uiState.value.navBarMenu == it) MaterialTheme.colorScheme.primaryContainer else Color.Transparent
+                )
 
-        ){
-            HLabel(it.name.toString(), modifier = Modifier.padding(8.dp),color = textColor, size = SizeCategory.Large)
+            ){
+                HLabel(it.name.toString(), modifier = Modifier.padding(8.dp),color = textColor, size = SizeCategory.Large)
 
+            }
         }
     }
+
 
 }
 
 @Composable
 fun Logo(textColor: Color){
+    val brush = Brush.horizontalGradient(listOf(
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.secondary,
+        MaterialTheme.colorScheme.tertiary)
+    )
     Text(
-        text = "hlsmUI",
-        fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-        fontWeight = FontWeight.Black,
-        fontSize = 24.sp,
-        color = textColor
+        text = "hlsmui",
+        style = TextStyle(
+            brush = brush,
+            fontWeight = FontWeight.Black,
+            fontSize = 28.sp,
+            fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+        )
+//        color = textColor,
+
     )
 }
+
